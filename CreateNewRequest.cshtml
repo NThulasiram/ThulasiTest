@@ -1,0 +1,133 @@
+﻿@model FGMC.RMS.Web.ViewModel.EncompassRequestVM
+@{
+    ViewBag.Title = "RMS :: Encompass Request";
+}
+<link href="~/Content/styles.css" rel="stylesheet"/>
+<div class="content">
+    <h4 class="content-title">Encompass Access</h4>
+    <div id="loading" style="display: none; text-align: center; padding-top: 5px;">
+        <img src="~/Images/loading.gif" width="32" height="32" />
+    </div>
+    <form>
+        <div class="row">
+            <div class="col-sm-3 col-lg-7">
+                <div class="form-group">
+                    <br>
+                    <label class="rbtn"><input type="radio" id="radioAdd" name="newuser">Add</label>
+                    <label class="rbtn"><input type="radio" id="radioRemove" name="newuser">Remove</label>
+                    <label class="rbtn"><input type="radio" id="radioEdit" name="newuser">Edit</label>
+                </div>
+            </div>
+            <div class="user-show" style="display: none">
+                <div class="col-sm-5">
+                </div>
+                <div class="col-sm-2">
+                </div>
+                <div class="col-sm-5">
+                    <div class="row">
+                        <div class="col-sm-12 col-lg-12">
+                            <label for="userid">User ID</label><span style="color:red">*</span><span style="font-style: italic; font-size: x-small"> (Search an existing User to populate selected personas)</span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="userid">
+                            </div>
+                        </div>
+                        <div class="col-sm-6 col-lg-6">
+                            <div class="form-group">
+                                <button type="button" class="btn btn-success" id="btnEditOrRemoveSearch">Search</button>
+                            </div>
+                        </div>
+                    </div> 
+                </div>
+                
+            </div>
+        </div>
+        <div class="row">
+            <div id="newuser" class="col-sm-12" style="display: none">
+                <form class="col-sm-6">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="first-name">First Name</label><span style="color:red">*</span>
+                                        <input type="text" class="form-control" id="firstname">
+                                    </div>
+                                </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    <div class="form-group">
+                                        <label for="last-name">Last Name</label><span style="color:red">*</span>
+                                        <input type="text" class="form-control" id="lastname">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                        </div>
+                        <div class="col-sm-5">
+                            <div class="row">
+                                <div class="col-sm-6 col-lg-10">
+                                    <label for="mimic-from">Mimic From</label><span style="font-style:italic; font-size:x-small"> (Search an existing User to populate selected personas)</span>
+                                </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    <input type="text" class="form-control" id="mimicfrom">
+                                </div>
+                                <div class="col-sm-6 col-lg-6">
+                                    @*<label for="userid" class="search_lbl"></label>*@
+                                    <div class="form-group">
+                                        <button type="button" class="btn btn-success" id="btnAddSearch">Search</button>
+                                    </div>
+                                </div>
+                                </div>
+                            </div>
+                    </div>
+                </form>
+            </div>
+            <div class="form-group" id="PersonaPanes">
+                <div class="col-sm-5">
+                    <label for="sel1">Available Personas</label>
+                    <select name="selectfrom" id="select-from" class="form-control" multiple size="5">
+
+                    </select>
+                </div>
+                <div class="col-sm-2 add-remov-btn">
+                    <div class="col-sm-12 text-center form-group"><a href="JavaScript:void(0);" id="btnAdd" class="btn btn-success">Add &raquo;</a>
+                    </div>
+                    <div class="col-sm-12 text-center form-group"><a href="JavaScript:void(0);" id="btnRemove" class="btn btn-danger">&laquo; Remove</a>
+                    </div>
+                </div>
+                <div class="col-sm-5">
+                    <label for="sel1">Selected Personas</label>
+                    <select name="selectto" id="select-to" class="form-control" multiple size="5">
+
+                    </select>
+                </div>
+            </div>
+
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <label for="comments">Comments</label>
+                    <textarea name="Name" rows="6" cols="40" class="form-control" id="comments"></textarea>
+                </div>
+            </div>
+
+
+            <div class="col-sm-12">
+                <button type="button" class="btn btn-success" id="btnSubmit">Submit</button>
+                <button type="button" class="btn btn-warning" id="btnCancel">Cancel</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div id="push"></div>
+
+
+
+<script src="~/Scripts/EncompassRequest.js">
+    
+</script>

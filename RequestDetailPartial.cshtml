@@ -1,0 +1,103 @@
+﻿@model FGMC.RMS.Web.Models.RequestDetail
+<script src="~/Scripts/rms/RequestDetailPartial.js"></script>
+<div class="modal fade" id="RequestDetail" role="dialog">
+    <div class="modal-dialog" id="modeldialog">
+
+        <!-- Modal content-->
+        <div class="modal-content" id="modelcontent">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Details</h4>
+            </div>
+            <div class="modal-body">
+                <form>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="ManageEngine-Status">Manage Engine Status :</label>
+                                @Html.TextBoxFor(o => o.MEStatus, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="ManageEngineTicket-ID">Manage Engine Ticket ID :</label>
+                                @Html.TextBoxFor(o => o.MERequestId, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="User-ID">User ID :</label>
+                                @Html.TextBoxFor(o => o.UserId, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label for="request-date">Request Date :</label>
+                                @Html.TextBoxFor(o => o.RequestDate, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label for="ManageEngine-Technitian">Manage Engine Technician :</label>
+                                @Html.TextBoxFor(o => o.PendingWith, new { @class = "form-control", @readonly = "readonly" })
+                            </div>
+                        </div>
+                    </div>
+                    @if (String.Compare(Model.RequestType, RMSConstants.NEW_USER_IT_SETUP_REQUEST, StringComparison.InvariantCultureIgnoreCase) != 0)
+                    {
+                        @*<script> $("#modeldialog").css("max-width", "600px");</script>*@
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="Request-Summary">Request Summary:</label>
+                                    @Html.TextAreaFor(o => o.RequestSummary, new { @class = "form-control", rows = "6", cols = "40", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="Requester-Comment">Requester Comment:</label>
+                                    @Html.TextAreaFor(o => o.Comments, new { @class = "form-control", rows = "6", cols = "40", @readonly = "readonly" })
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    else
+                    {
+                        if (!string.IsNullOrEmpty(Model.RequestSummary))
+                        {
+                            <div class="row">
+                                <div class="col-sm-12 newUserITSetupRequestSummaryHeader">Request Summary</div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-12">
+
+                                    <span id="newUserItSetupSpan"></span>
+                                    <script>ParseNewUserITSetupDescription(@Html.Raw(Model.RequestSummary));</script>
+
+                                </div>
+                            </div>
+
+
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    There is no description available for this request.
+                                </div>
+                            </div>
+
+                        }
+                    }
+                    <button type="button" class="btn btn-default btn-primary" data-dismiss="modal">Close</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

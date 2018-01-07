@@ -1,0 +1,63 @@
+﻿@model FGMC.RMS.Web.Models.RequestDashbordModel
+<link href="~/Content/styles.css" rel="stylesheet" />
+<div class="content">
+    <h4 class="content-title">Requests</h4>
+    <table id="RequestSummary" class="table table-striped table-bordered" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Request Type</th>
+                <th>Manage Engine Ticket ID</th>
+                <th>Raised For</th>
+                <th>Approval Status</th>
+                <th>Manage Engine Status</th>
+                <th>Request Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model.RequestDetail)
+            {
+                <tr>
+                    <td>@item.RequestType</td>
+                    <td><a href="#" onclick="OpenRequestDetail(@item.RequestId)">@item.MERequestId</a></td>
+                    <td>@item.UserId</td>
+                    <td>@item.RequestStatus</td>
+                    <td>@item.MEStatus</td>
+                    <td>@item.RequestDate</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<span style="color: red">@Model.ErrorMessage</span>
+<div id="RequestDetailPlace">
+  
+</div>
+<script>
+    function OpenRequestDetail(id) {
+        $.ajax({
+            type: "POST",
+            url: "/RequestSummary/OpenRequestDetail",
+            datatype: "text",
+            data: {
+                id: id
+            },
+            success: function(response) {
+                $('#RequestDetailPlace').html(response);
+                $("#RequestDetail").modal('show');
+
+            },
+            error: function() {
+                alert('Smething went Wrong !!!. Please try agian');
+                window.location.reload(true);
+            }
+        });
+    }
+    $("#RequestSummary").dataTable();
+</script>
+
+
+
+
+
+
+

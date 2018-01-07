@@ -1,0 +1,39 @@
+﻿
+@model FGMC.RMS.Web.Models.EncompassManagerReportDetails
+<div class="content">
+    <table id="RequestSummary" class="table table-striped table-bordered" cellspacing="0">
+        <thead>
+        <tr>
+            <th>User Name</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Employee Id</th>
+            <th>Personas</th>
+            <th>Organization Groups</th>
+            <th>Login</th>
+            <th>Account</th>
+            <th>User Email</th>
+            <th>Manager Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in Model.ReportData)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.EmployeeId</td>
+                <td>@item.Personas</td>
+                <td>@item.OrganizationGroups</td>
+                <td>@item.Login</td>
+                <td>@item.Account</td>
+                <td>@item.UserEmail</td>
+                <td>@item.ManagerName</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+    <span style="color: red">@Model.ErrorMessage</span>
+</div>
+

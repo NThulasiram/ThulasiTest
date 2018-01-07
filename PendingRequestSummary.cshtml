@@ -1,0 +1,17 @@
+﻿
+@model FGMC.RMS.Web.Models.RequestDashbordModel
+@{
+    ViewBag.Title = "RMS :: Pending Requests";
+}
+<div class="alert alert-danger" id="ErrorInfo" style="display: none">
+    <h5><span></span></h5>
+</div>
+<script src="~/Scripts/requestSummary.js"></script>
+@Html.Partial("RequestSummaryGridPartial", Model)
+
+@if (!string.IsNullOrEmpty(@ViewBag.ErrorMessage))
+{
+    <script type="text/javascript">
+                showInfoMsg("ErrorInfo", "@ViewBag.ErrorMessage");
+    </script>
+}

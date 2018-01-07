@@ -1,0 +1,47 @@
+﻿
+@model FGMC.RMS.Web.Models.RequestDashbordModel
+@{
+    ViewBag.Title = "RMS :: All Requests";
+}
+
+<div class="alert alert-danger" id="ErrorInfo" style="display: none">
+    <h5><span></span></h5>
+</div>
+<div id="loading" style="display: none; text-align: center; padding-top: 5px;">
+    <img src="~/Images/loading.gif" width="32" height="32" />
+</div>
+<div class="row">
+    <div class="col-sm-3 col-lg-3">
+        <div class="form-group">
+            <label for="RequestTypes">Request Type :</label>
+            @Html.DropDownListFor(m => m.SelectedRequestTypeId, Model.RequestTypes, "All", new { id = "ddlRequestType", @class = "form-control" })
+        </div>
+    </div>
+    <div class="col-sm-3 col-lg-3">
+        <div class="form-group">
+            <label for="MEStatus">Manage Engine Status :</label>
+            @Html.DropDownListFor(m => m.SelectedMeStatus, Model.MeRequestStatus, new { id = "ddlMEStatus", @class = "form-control" } )
+        </div>
+    </div>
+    <div class="col-sm-3 col-lg-2">
+        <label for="userid" class="search_lbl"></label>
+        <div class="form-group">
+            <button type="button" class="btn btn-success" id="btnRequestSearch">Search</button>
+        </div>
+    </div>
+</div>
+<div id="DynamicRequestPlace">
+    @Html.Partial("RequestSummaryGridPartial", Model)
+</div>
+<script src="~/Scripts/requestSummary.js"></script>
+@if (!string.IsNullOrEmpty(@ViewBag.ErrorMessage))
+{
+    <script type="text/javascript">
+              
+                showInfoMsg("ErrorInfo", "@ViewBag.ErrorMessage");
+    </script>
+}
+
+
+
+ 
