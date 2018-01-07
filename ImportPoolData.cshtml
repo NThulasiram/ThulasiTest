@@ -1,0 +1,189 @@
+﻿
+@using System.Data.SqlClient
+@model FGMCPoolUpdater.ViewModels.LoanTemplateViewModel
+@{
+    ViewBag.Title = "ImportPoolData";
+}
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>FGMC</title>
+    <link href="~/Content/buttons.dataTables.min.css" rel="stylesheet" />
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet"/>
+    <link href="~/Content/style.css" rel="stylesheet"/>
+    <script src="~/Scripts/html5.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="~/Scripts/jquery.dataTables.min.js" type="text/javascript" charset="utf8"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    <script src="~/Scripts/jquery.signalR-2.2.0.min.js"></script>
+    <script src="~/signalr/js"></script>
+    <script src="https://cdn.datatables.net/buttons/1.1.0/js/dataTables.buttons.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.1.0/js/buttons.flash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jszip/2.5.0/jszip.min.js"></script>
+    <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/pdfmake.min.js"></script>
+    <script src="//cdn.rawgit.com/bpampuch/pdfmake/0.1.18/build/vfs_fonts.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.1.0/js/buttons.html5.min.js"></script>
+    <script src="//cdn.datatables.net/buttons/1.1.0/js/buttons.print.min.js"></script>
+    <script src="~/Scripts/PoolUpdaterData.js"></script>
+    <script type="text/javascript">
+        function preventBack() { window.history.forward(); }
+
+        setTimeout("preventBack()", 0);
+        window.onunload = function() { null };
+    </script>
+</head>
+<body>
+    <section class="container-fluid">
+        <ul class="nav nav-tabs">
+            <li class="active" id='Importtab'><a data-toggle="tab" href="#Import">Import Pool Data</a></li>
+            <li id='Exporttab'><a data-toggle="tab" href="#Export">Export Failed Pool Data</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="Import" class="tab-pane fade in active">
+                <div class="form-wrap">
+                    <h3>Import Pool Data</h3>
+                    <form class="form-inline wrap" role="form">
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="form-group">
+                                    <label for="email">Select Pool Data File:</label>
+                                    @Html.TextBoxFor(m => m.File, null, new { type = "file", id = "btnfilechange", @class = "form-control", name = "select", value = "Browse", accept = ".xlsx, .xls" })
+                                </div>
+                            </div>
+                            <div class="col-lg-5">
+                                <div class="form-group">
+                                    <label for="Excel">Select Excel Sheet:</label>
+                                    @Html.DropDownListFor(m => m.SelectedSheet, (IEnumerable<SelectListItem>)ViewBag.Worksheets, "Select Excel Sheet", new { id = "Excel", @class = "form-control ddlProjectvalue" })
+                                </div>
+                                <button type="button" id="btnOpenExcel" class="btn btn-default">Open Excel File</button>
+                            </div>
+                            <div class="col-lg-2">
+                                <button type="button" id="btnUpload" class="btn btn-default">Upload Pool Data</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+
+                <div id="loading" style="display: none; text-align: center; padding-top: 5px;"><img src="~/Images/loading.gif" width="32" height="32" /></div> 
+                <div class="alert alert-success" id="Sucessinfo">
+                    <h5><span></span></h5>
+                </div>
+                <div class="alert alert-danger" id="ErrorInfo">
+                    <h5><span></span></h5>
+                </div>
+                <div class="table-responsive wrap">
+
+                    <table class="table table-bordered table-hover table-striped" id="importPool">
+                        <thead>
+                            <tr>
+                                <th width="25px">Exclude Loan</th>
+                                <th>Loan Number</th>
+                                <th>Investor Type</th>
+                                <th>GNMA Issue Type</th>
+                                <th>GNMA Pool Type</th>
+                                <th>Spec Pool Type</th>
+                                <th>10% Tolerance Met</th>
+                                <th>CUSIP</th>
+                                <th>Commitment Date</th>
+                                <th>Security Price</th>
+                                <th>Pool Number</th>
+                                <th>Custodian</th>
+                                <th>LockSellInvestor Name</th>
+                                <th>GNMA Security Created</th>
+                                <th>Pool Created By</th>
+                                <th>Pool Validated By</th>
+                                <th>Servicer ID</th>
+                                <th>Guarantee Fee</th>
+                                <th>Base Guarantee Fee</th>
+                                <th>Guarantee Fee After Alternate Payment Method</th>
+                                <th>Investor Remittance Type</th>
+                                <th>Investor Remittance Day</th>
+                                <th>Loan Default Loss Party</th>
+                                <th>REO Marketing Party</th>
+                                <th>Commit.#</th>
+                                <th>Contract #</th>
+                                <th>Base Comp. Price</th>
+                                <th>LLPA (title)</th>
+                                <th>LLPA (value)</th>
+                                <th>SRP (title)</th>
+                                <th>SRP(value)</th>
+                                <th>Lock Date</th>
+                                <th>Lock # of days</th>
+                                <th>Investor</th>
+                                <th>Lock Type</th> 
+                                <th>Co-Issue Buyer</th>
+                                <th>Co-Issue Loan Number</th> 
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+                <div id="notifications">
+                </div>
+            </div>
+            <div id="Export" class="tab-pane fade wrap">
+                <h3>Export Failed Pool Data</h3>
+                <div class="alert alert-success" id="ExportSucessinfo">
+                    <h5><span></span></h5>
+                </div>
+                <div class="table-responsive wrap">
+
+                    <table class="table table-bordered table-hover table-striped" id="ExportPool">
+                        <thead>
+                            <tr>
+                                <th>Loan Number</th>
+                                <th>Investor Type</th>
+                                <th>GNMA Issue Type</th>
+                                <th>GNMA Pool Type</th>
+                                <th>Spec Pool Type</th>
+                                <th>10% Tolerance Met</th>
+                                <th>CUSIP</th>
+                                <th>Commitment Date</th>
+                                <th>Security Price</th>
+                                <th>Pool Number</th>
+                                <th>Custodian</th>
+                                <th>LockSellInvestor Name</th>
+                                <th>GNMA Security Created</th>
+                                <th>Pool Created By</th>
+                                <th>Pool Validated By</th>
+                                <th>Servicer ID</th>
+                                <th>Guarantee Fee</th>
+                                <th>Base Guarantee Fee</th>
+                                <th>Guarantee Fee After Alternate Payment Method</th>
+                                <th>Investor Remittance Type</th>
+                                <th>Investor Remittance Day</th>
+                                <th>Loan Default Loss Party</th>
+                                <th>REO Marketing Party</th>
+                                <th>Commit.#</th>
+                                <th>Contract #</th>
+                                <th>Base Comp. Price</th>
+                                <th>LLPA (title)</th>
+                                <th>LLPA (value)</th>
+                                <th>SRP (title)</th>
+                                <th>SRP(value)</th>
+                                <th>Lock Date</th>
+                                <th>Lock # of days</th>
+                                <th>Investor</th>
+                                <th>Lock Type</th> 
+                                <th>Co-Issue Buyer</th>
+                                <th>Co-Issue Loan Number</th> 
+                                <th>Reason For Failed Loans</th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</body>
+</html>

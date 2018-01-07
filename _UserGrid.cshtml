@@ -1,0 +1,90 @@
+﻿
+@model FGMCPoolUpdater.PoolUpdaterServiceReference.EncompassUser
+<script src="~/Scripts/Validations.js"></script>
+
+@using (Html.BeginForm())
+{
+    <h3 class="mrgB">Below Users Are Authorized To Use This Application</h3>
+
+
+    @*<div style="float: right">
+            <label for="">Search User ID</label>
+            <input type="text" style="width: 250px; border: 1px solid #cccccc; height: 34px;" name="searchUserId" id="searchUserId" value="@TempData["GridSearchValue"]">
+            <button type="submit" class="btn btn-default" name="command" value="GridSearch"> Search</button>
+            <button type="submit" class="btn btn-default" name="command" value="Clear">Clear</button>
+        </div>*@
+
+   
+
+    if (Model != null)
+    {
+        if (Model.EncompassUsers != null)
+        {
+            <table border="1" class="table table-bordered table-hover table-striped" id="importPool">
+                <thead>
+                    <tr>
+                        <th>User ID</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                        <th>Email</th>
+                        <th>Is Admin?</th>
+                        <th>Remove</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.EncompassUsers.Count > 0)
+                    {
+
+                        foreach (var user in Model.EncompassUsers)
+                        {
+
+                            <tr>
+                                <td>@user.UserId </td>
+                                <td>@user.FirstName </td>
+                                <td>@user.LastName </td>
+                                <td>@user.Email </td>
+                                <td>@user.UserIsAdmin </td>
+                                <td align="center"><button type="submit" name="Command" class="btn btn-default" value="@user.UserId" onclick="return RemoveUser();"> Remove </button> </td>
+                            </tr>
+                        }
+
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="6"> No matching records found  </td>
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        }
+    }
+}
+
+@*<script>
+        $(document).ready(function() {
+            $('#importPool').dataTable();
+        });
+
+    </script>*@
+
+<script>
+    $(document).ready(function () {
+        $("#importPool").dataTable(
+  {
+      "aoColumnDefs": [{
+          "bSortable": false,
+          "aTargets": [3, 4, 5]
+      }]
+  }
+);
+    });
+
+</script>
+
+
+<footer class="wrap navbar-fixed-bottom">
+    <p>Pool Updater V1.0 - FGMC</p>
+</footer>
+
