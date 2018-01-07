@@ -1,0 +1,33 @@
+﻿@model FGMC.LoanLogicsQC.Web.Models.ConfigurationModel
+
+<link href="~/Content/style.css" rel="stylesheet" />
+<link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet"/>
+
+@using (Html.BeginForm("UpdateConfiguration", "ApplicationConfiguration", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+{
+     @Html.HiddenFor(o => o.ConfigurationId, new { id = "ConfigurationId", name = "ConfigurationId" })
+    <div class="popUpTitleBar">Modify Configurations </div>
+    <div class="col-lg-10">
+        <label class="col-lg-6" for="">Configuration Type</label>
+        @* @Html.DropDownListFor(o => o.ConfigurationTypeName, (IEnumerable<SelectListItem>) ViewBag.GetConfigurationsTypeName, new {@class = "form-control", id = "ConfigurationTypeName", name = "ConfigurationTypeName"})*@
+        @*<br/>*@
+        @Html.DropDownList("ConfigurationTypeName", (IEnumerable<SelectListItem>)ViewBag.GetSingleConfigurationTypeName, new { @class = "form-control", id = "ConfigurationTypeName", name = "ConfigurationTypeName",@readonly = "reaonly" })  <br />
+
+        <label class="col-lg-6" for="">Configuration Key</label>
+        <input type="text" class="form-control" id="ConfigurationName" value="@Model.ConfigurationName" readonly="readonly" name="ConfigurationName"> <br />
+
+        <label class="col-lg-6" for="">Configuration Value</label>
+        <input type="text" value="@Model.ConfigurationValue" class="form-control" required="required" id="ConfigurationValue" name="ConfigurationValue"> <br />
+
+        <input type="submit" id="btnSave" value="Save" class="btn btn-default" />
+        <button type="button" id="btnCancel" name="Command" value="Cancel" class="btn btn-default" onclick="closePopUp()">Cancel</button>
+    </div>
+}
+
+<script>
+    function closePopUp() {
+        $(".ui-dialog").hide();
+        $(".ui-widget-overlay").hide();
+
+    }
+</script>

@@ -1,0 +1,48 @@
+﻿@model FGMC.LoanLogicsQC.Web.Models.ConfigurationModel
+   <title> @ViewBag.Title </title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.11.3/jquery-ui.js"></script>
+
+    <script src="~/Scripts/jquery.dataTables.min.js" type="text/javascript" charset="utf8"></script>
+    <script type="text/javascript" src="http://cdn.datatables.net/1.10.2/js/jquery.dataTables.min.js"></script>
+@*<link href="~/Content/style.css" rel="stylesheet" />*@
+<link href="~/Content/CommonStyleSheet.css" rel="stylesheet" />
+    <script src="~/Scripts/html5.js"></script>
+    <script src="~/Scripts/dataTables.bootstrap.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+    @*<link rel="stylesheet"  href="http://cdn.datatables.net/1.10.2/css/jquery.dataTables.min.css">*@
+    <link href="~/Content/dataTables.bootstrap.min.css" rel="stylesheet" />
+    <script src="~/Scripts/Validations.js"></script>
+
+
+
+@using (Html.BeginForm("AddConfiguration", "ApplicationConfiguration", FormMethod.Post, new {@class = "form-horizontal", role = "form"}))
+{
+  <div class="col-lg-10">
+
+     <label class="col-lg-6" for="">Configuration Type</label>
+        @Html.DropDownList("ConfigurationTypeName", (IEnumerable<SelectListItem>) ViewBag.GetConfigurationsTypeName, null, new {@class = "form-control", id = "ConfigurationTypeName", name = "ConfigurationTypeName"}) <br/>
+
+       <label class="col-lg-6" for="">Configuration Key</label>
+        <input type="text" class="form-control" id="ConfigurationName" required="required" name="ConfigurationName"> <br/>
+
+        <label class="col-lg-6" for="">Configuration Value</label>
+        <input type="text" class="form-control" required="required" id="ConfigurationValue" name="ConfigurationValue"> <br/>
+
+        <input type="submit" id="btnSave" value="Save" class="btn btn-default"/>
+        <button type="button" id="btnCancel" name="Command" value="Cancel" class="btn btn-default" onclick="closePopUp()">Cancel</button>
+
+    </div>
+}
+
+<script>
+    function closePopUp() {
+        $(".ui-dialog").hide();
+        $(".ui-widget-overlay").hide();
+    }
+</script>
+
+
+
