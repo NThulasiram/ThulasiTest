@@ -1,0 +1,47 @@
+Active directory use:
+In Organization to strore Userinfo,Groups(users diffrent groups),SystemInfo,ServicesInfo...
+
+LDAP(Lightweight Directory Aceess protocal)
+
+-----------------------------------------------------------------------------------------------------------
+Progarming: using namespace System.DirectoryServices
+
+DirectoryEntry object:
+
+DirectoryEntry object point out that rootdirectory
+once we create DirectoryEntry object thourgh that we can aceess all data in AD.
+using DirectoryEntry object we can modify data also
+
+DirectorySearch:
+
+Using this object we can acesss all data form AD, but we can't update any data.
+
+return type of all DirectorySearch methods are SearchResult (or)  SearchResultCollection.
+
+ if we want update data then we need to convert  SearchResult to  DirectoryEntry.
+ 
+ -----------------------------------------------------------------------------------------------------
+ Progarming: using namespace System.DirectoryServices.AccountManagement
+ 
+ This is latest library,using this we can perform all operation, what where you can do with System.DirectoryServices. additional to that we can predifine mathod to perform 
+ operation. and here AD properties we can aceess like object properties, But In case of  System.DirectoryServices we were aceessing like dictionary with properties.
+ 
+ Classes:
+ 
+ PricipalContext Class: This class used to refere which directory we are using to Bind in AD.
+ UserPrinciplal Class: This is usedto refere users in AD.
+ GroupPrincpal Class: This is used to refere UserGroups in AD.
+ 
+ principalSearcher Class: This is for serch purpose.
+ userprincipal.Methods()  : this is some predefined methods in userprincipal class.
+ GroupPrincipal.Methods() :This is some predefined meyhods in  GroupPrincipal class.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
