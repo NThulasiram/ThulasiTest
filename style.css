@@ -1,0 +1,46 @@
+*{padding:0;margin:0;}
+body{font-family:calibri;font-size:15px;color:#333;background: #FAFAFA;}
+header{color:#4c4c4b;border-bottom:5px solid #32529b;margin-bottom:4px;background: #ffffff;}
+header .logo{margin: 0;padding:4px 0;}
+header ul.home-nav li{display: inline-block;list-style:none;}
+header ul.home-nav li a{color:#4c4c4b;border-right: 1px solid #a5a8ab;padding: 0 10px;}
+header ul.home-nav li:last-child a{border-right:0;}
+.glyphicon {margin-right:5px;}
+.newMenuBar{background: #548e3e; margin: auto; padding:0 10px; min-height: 36px;}
+.newMenuBar li a {display: block;padding: 0 5px; color: #fff; list-style-type: none;}
+.newMenuBar li{display:inline-block; padding: 7px 0;}
+/*.newMenuBar li:last-child { border-right: none;}*/
+section {margin-bottom:5em;}
+.tab-content {border: 1px solid #ccc;border-top: none; padding-top:15px;background: #fff;}
+.form-wrap {border:1px solid #A9C9E5;margin:0 15px; 0;}
+h3 {background: #b0caed;padding: 5px;margin-top:0px;}
+.wrap{padding:15px;}
+.btn {background:#C5C5C5; margin-left: 10px; width:120px; border-color:#adadad; font-weight:600;}
+.btn:hover {background:#A5A5A5;}
+table thead {background: #fff;}
+.marL15 {margin-left:15px}
+footer{background: #d2e0f1;}
+footer p {font-size: 18px;font-weight: bold;}
+.alert{ display: none;    margin: 0 15px;}
+.msgVisible{ display: block;}
+.mrgB {margin-bottom: 15px}
+#notifications { height: 300px;overflow-y: scroll;background: #D3D3D3}
+/* Login Page */
+.login-container {margin-top: 2%;background: #b0caed; padding: 40px;border: 2px solid #909090;}
+.login-logo {margin-top: 5%}
+header h2 {margin:5px 0 15px }
+#importPool tr td:first-of-type {}
+
+@media screen and (max-width: 1200px) {
+.form-wrap .btn {margin-top:15px;}
+.form-wrap .form-group {margin-top:15px;}
+}
+@media screen and (max-width: 768px) {
+.table-responsive {
+    border: none;
+}
+}
+@media screen and (max-width: 480px) {
+.nav>li>a {padding: 6px 8px;}
+}
+div.dataTables_wrapper div.dataTables_paginate {    text-align: left;}
